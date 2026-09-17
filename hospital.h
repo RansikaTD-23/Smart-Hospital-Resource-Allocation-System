@@ -11,7 +11,7 @@
 //Emergency(Triage Level)
 #define URGENCY_NORMAL 1   //triage level 1
 #define URGENCY_URGENT 2   //triage level 2
-#define URGRNCY_CRITICAL 3 //triage level 3
+#define URGENCY_CRITICAL 3 //triage level 3
 
 //Billing - Surcharge
 #define SURCHARGE_URGENT 20   //20% base fee
@@ -28,6 +28,11 @@ extern float specialtyConslationFee[NUM_SPECIALITY];
 extern int specialtyConslationTime[NUM_SPECIALITY];
 extern int specialtyPatientsCapacity[NUM_SPECIALITY];
 
+//Hospital Ward Data
+extern char wardName[NUM_WARD][NAME_LENGTH];
+extern float wardDailyBedRate[NUM_WARD];
+extern int wardTotalBedCapacity[NUM_WARD];
+
 //Register Patients & collect data
 void registerPatients(
                         char patientName[][NAME_LENGTH],
@@ -37,8 +42,21 @@ void registerPatients(
                         int isAdmitted[],
                         int wardId[],
                         int daysAdmitted[],
+                        int specialtyQueueCount[],
                         int *count);
 
+
+//Billing & Waiting Time Calculation
+float calculateWaitingTime(int specialityId,int queueCount[],int specialityTime[]);
+float calculateEmergencySurcharge(int urgencyLevel,float baseFee);
+float calculateTotalWardStayCost(int daysAdmitted,int wardId,float wardRate[]);
+float calculateGrossTotalBill(float baseConsultanFee,float emegencySurcharge,float totalWardCost);
+float calculateSubsidyDiscount(int age,float grossTotal);
+float calculateFinalAmountPayable(float grossTotal,float discount);
+
+void printBill(int patientId, char name[], int age, int specialtyId, int wardId, int isAdmitted,
+               int urgencyLevel, int daysAdmitted, float baseFee, float surcharge, float wardCost,
+               float grossTotal, float discount, float finalAmount, float waitingTime);
 
 
 #endif

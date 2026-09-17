@@ -10,7 +10,7 @@
     int specialtyPatientsCapacity[NUM_SPECIALITY]={30,20,12,10};
 
     //Hospital Ward Data
-    char wardName[NUM_WARD][NAME_LENGTH]={"General Ward","Paediatric Ward","Surgical Ward","ICU(Intensive Care Unit)"};
+    char wardName[NUM_WARD][NAME_LENGTH]={"General Ward","Paediatric Ward","Surgical Ward","ICU"};
     float wardDailyBedRate[NUM_WARD]={3000.00,6000.00,12000.00,25000.00};
     int wardTotalBedCapacity[NUM_WARD]={20,10,10,05};
 
@@ -19,6 +19,9 @@
 
     //Patient Tracking
     int patientCount = 0;
+
+    //Waiting Time
+    int specialtyQueueCount[NUM_SPECIALITY] = {0};
 
 int main()
 {
@@ -50,7 +53,7 @@ int main()
         switch(choice){
             case 1:
                    registerPatients(patientName,patientAge,patientEmergencyLevel,specialtyId,isAdmitted,wardId,
-                                    daysAdmitted,&patientCount);//patient registration
+                                    daysAdmitted,specialtyQueueCount,&patientCount);//patient registration
                    break;
             case 2:
                    break;
@@ -63,6 +66,7 @@ int main()
                    printf("Invalid...Please Try Again...");
         }
     }while(choice != 4);
+
     return 0;
 }
 
@@ -73,6 +77,7 @@ void registerPatients(char patientName[][NAME_LENGTH],
                       int isAdmitted[],
                       int wardId[],
                       int daysAdmitted[],
+                      int specialtyQueueCount[],
                       int *count)
     {
         int i = *count;
@@ -163,7 +168,20 @@ void registerPatients(char patientName[][NAME_LENGTH],
         printf("Patient Id: PAT - %d\n",1000+(i+1));
         (*count)++;
 
+        //Billing Calculations
+        float waitingTime = calculateWaitingTime(specialtyId[i],specialtyQueueCount,specialtyConslationTime);
+        specialtyQueueCount[specialtyId[i]-1]++;
+        float baseFee = specialtyConslationFee[specialtyId[i]-1];
+        float surcharge = calculateEmergencySurcharge(patientEmergencyLevel[i], baseFee);
+        float wardCost = calculateTotalWardStayCost(daysAdmitted[i], wardId[i], wardDailyBedRate);
+        float grossTotal = calculateGrossTotalBill(baseFee, surcharge, wardCost);
+        float discount = calculateSubsidyDiscount(patientAge[i], grossTotal);
+        float finalAmount = calculateFinalAmountPayable(grossTotal, discount);
 
+        //Bill Print
+        printBill(1000+(i+1), patientName[i], patientAge[i], specialtyId[i], wardId[i], isAdmitted[i],
+                  patientEmergencyLevel[i], daysAdmitted[i], baseFee, surcharge, wardCost,
+                  grossTotal, discount, finalAmount, waitingTime);
 
     }
 
