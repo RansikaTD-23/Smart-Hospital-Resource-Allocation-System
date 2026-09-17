@@ -22,11 +22,22 @@
 #define AGE_ADULT 65 //age 65 up
 #define SUBSIDY_PERCENT 15 //15% discount
 
-//Doctor Specialty DataS
+//Doctor Specialty Data
 extern char specialtyNames[NUM_SPECIALITY][NAME_LENGTH];
 extern float specialtyConslationFee[NUM_SPECIALITY];
 extern int specialtyConslationTime[NUM_SPECIALITY];
 extern int specialtyPatientsCapacity[NUM_SPECIALITY];
+
+//Register Patients & collect data
+void registerPatients(
+                        char patientName[][NAME_LENGTH],
+                        int patientAge[],
+                        int patientEmergencyLevel[],
+                        int specialtyId[],
+                        int isAdmitted[],
+                        int wardId[],
+                        int daysAdmitted[],
+                        int *count);
 
 
 
