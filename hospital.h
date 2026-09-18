@@ -33,6 +33,9 @@ extern char wardName[NUM_WARD][NAME_LENGTH];
 extern float wardDailyBedRate[NUM_WARD];
 extern int wardTotalBedCapacity[NUM_WARD];
 
+//Bed Status
+extern int bedOccupancy[NUM_WARD][MAX_BED_PER_WARD];
+
 //Register Patients & collect data
 void registerPatients(
                         char patientName[][NAME_LENGTH],
