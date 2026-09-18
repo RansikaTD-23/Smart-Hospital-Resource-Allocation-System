@@ -23,6 +23,10 @@
     //Waiting Time
     int specialtyQueueCount[NUM_SPECIALITY] = {0};
 
+    //Performance Report
+    float patientFinalBill[MAX_PATIENTS];
+    float patientDiscount[MAX_PATIENTS];
+
 int main()
 {
     int choice;
@@ -56,15 +60,16 @@ int main()
                                     daysAdmitted,specialtyQueueCount,&patientCount);//patient registration
                    break;
             case 2:
-                   checkBedStatus(bedOccupancy, wardTotalBedCapacity);
+                   checkBedStatus(bedOccupancy, wardTotalBedCapacity);//checking bed status
                    break;
             case 3:
+                   sortAndDisplayByPriority(patientName, patientEmergencyLevel, patientCount);//sorting by priority
                    break;
             case 4:
-                   printf("Thank you....");
+                   printf("Thank you....\n");//exit
                    break;
             default:
-                   printf("Invalid...Please Try Again...");
+                   printf("Invalid...Please Try Again...\n");
         }
     }while(choice != 4);
 
@@ -160,7 +165,7 @@ void registerPatients(char patientName[][NAME_LENGTH],
                 }
             }while(daysAdmitted[i]<=0);
             bedNum = allocateBed(wardId[i],bedOccupancy,wardTotalBedCapacity);
-            if(bedNum = -1){
+            if(bedNum == -1){
                 printf("\nSorry %s is Full...No beds availabe...",wardName[wardId[i]-1]);
             }
 

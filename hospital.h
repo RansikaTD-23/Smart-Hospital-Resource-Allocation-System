@@ -43,6 +43,8 @@ void registerPatients(
                         int wardId[],
                         int daysAdmitted[],
                         int specialtyQueueCount[],
+                        float patientFinalBill[],
+                        float patientDiscount,
                         int *count);
 
 
@@ -62,6 +64,14 @@ void printBill(int patientId, char name[], int age, int specialtyId, int wardId,
 // Bed Management Functions
 int allocateBed(int wardId, int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[]);
 void checkBedStatus(int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[]);
+
+// Priority Sort & Report
+void sortAndDisplayByPriority(char patientName[][NAME_LENGTH], int patientEmergencyLevel[], int count);
+
+//Generate Summary Report
+void generateSummaryReport(int patientEmergencyLevel[], float patientFinalBill[], float patientDiscount[],
+                            char patientName[][NAME_LENGTH], int count,
+                            int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[]);
 
 
 #endif
