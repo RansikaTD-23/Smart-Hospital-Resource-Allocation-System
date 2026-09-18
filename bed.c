@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include "hospital.h"
+
+int allocateBed(int wardId, int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[])
+{
+    int bedNum;
+    for(bedNum = 0; bedNum < wardCapacity[wardId-1]; bedNum++){
+        if(bedOccupancy[wardId-1][bedNum] == 0){
+            bedOccupancy[wardId-1][bedNum] = 1;
+            return bedNum + 1;
+        }
+    }
+    return -1;
+}
+
+void checkBedStatus(int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[])
+{
+    int ward, bed, occupiedCount;
+
+    printf("\n=========== BED OCCUPANCY STATUS ===========\n");
+
+    for(ward = 0; ward < NUM_WARD; ward++){
+        occupiedCount = 0;
+        for(bed = 0; bed < wardCapacity[ward]; bed++){
+            if(bedOccupancy[ward][bed] == 1){
+                occupiedCount++;
+            }
+        }
+        printf("\n%s\n", wardName[ward]);
+        printf("  Total Beds     : %d\n", wardCapacity[ward]);
+        printf("  Occupied       : %d\n", occupiedCount);
+        printf("  Available      : %d\n", wardCapacity[ward] - occupiedCount);
+    }
+    printf("\n=============================================\n");
+}

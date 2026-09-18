@@ -54,9 +54,14 @@ float calculateGrossTotalBill(float baseConsultanFee,float emegencySurcharge,flo
 float calculateSubsidyDiscount(int age,float grossTotal);
 float calculateFinalAmountPayable(float grossTotal,float discount);
 
+//Print Bill
 void printBill(int patientId, char name[], int age, int specialtyId, int wardId, int isAdmitted,
                int urgencyLevel, int daysAdmitted, float baseFee, float surcharge, float wardCost,
-               float grossTotal, float discount, float finalAmount, float waitingTime);
+               float grossTotal, float discount, float finalAmount, float waitingTime,int bedNum);
+
+// Bed Management Functions
+int allocateBed(int wardId, int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[]);
+void checkBedStatus(int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[]);
 
 
 #endif

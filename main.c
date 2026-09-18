@@ -56,6 +56,7 @@ int main()
                                     daysAdmitted,specialtyQueueCount,&patientCount);//patient registration
                    break;
             case 2:
+                   checkBedStatus(bedOccupancy, wardTotalBedCapacity);
                    break;
             case 3:
                    break;
@@ -133,7 +134,7 @@ void registerPatients(char patientName[][NAME_LENGTH],
             }
         }while(isAdmitted[i]<0 || isAdmitted[i]>1);
 
-
+        int bedNum = 0;
         if(isAdmitted[i]==1){
             do
             {
@@ -142,7 +143,7 @@ void registerPatients(char patientName[][NAME_LENGTH],
                 printf("\n            2.Paeditrics Ward");
                 printf("\n            3.Surgical Ward");
                 printf("\n            4.ICU(Intensive Care Unit)");
-                printf("\nWard Id:");
+                printf("\nWard Id: ");
                 scanf("%d",&wardId[i]);
                 if(wardId[i]<1 || wardId[i]>4){
                     printf("\nInvalid Input...Please Enter 1,2,3 or 4!!!!\n");
@@ -158,6 +159,10 @@ void registerPatients(char patientName[][NAME_LENGTH],
                 printf("Invalid...Days must be greater than 0\n ");
                 }
             }while(daysAdmitted[i]<=0);
+            bedNum = allocateBed(wardId[i],bedOccupancy,wardTotalBedCapacity);
+            if(bedNum = -1){
+                printf("\nSorry %s is Full...No beds availabe...",wardName[wardId[i]-1]);
+            }
 
         }else{
             wardId[i]=0;
@@ -181,7 +186,7 @@ void registerPatients(char patientName[][NAME_LENGTH],
         //Bill Print
         printBill(1000+(i+1), patientName[i], patientAge[i], specialtyId[i], wardId[i], isAdmitted[i],
                   patientEmergencyLevel[i], daysAdmitted[i], baseFee, surcharge, wardCost,
-                  grossTotal, discount, finalAmount, waitingTime);
+                  grossTotal, discount, finalAmount, waitingTime,bedNum);
 
     }
 

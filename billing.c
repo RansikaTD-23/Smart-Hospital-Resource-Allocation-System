@@ -58,7 +58,7 @@ float calculateFinalAmountPayable(float grossTotal,float discount)
 
 void printBill(int patientId, char patientName[], int age, int specialtyId, int wardId, int isAdmitted,
                int urgencyLevel, int daysAdmitted, float baseFee, float surcharge, float wardCost,
-               float grossTotal, float discount, float finalAmount, float waitingTime)
+               float grossTotal, float discount, float finalAmount, float waitingTime,int bedNum)
 {
     printf("\n==================================================\n");
     printf("             SMART HOSPITAL ADMISSION & BILL        \n");
