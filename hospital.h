@@ -68,10 +68,15 @@ void checkBedStatus(int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[]);
 // Priority Sort & Report
 void sortAndDisplayByPriority(char patientName[][NAME_LENGTH], int patientEmergencyLevel[], int count);
 
-//Generate Summary Report
+//Generate Performance Report
 void generateSummaryReport(int patientEmergencyLevel[], float patientFinalBill[], float patientDiscount[],
                             char patientName[][NAME_LENGTH], int count,
                             int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[]);
+
+// File Handling
+void saveBedStatus(int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[]);
+void loadBedStatus(int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[]);
+void appendPatientRecord(int patientId, char name[], float finalAmount);
 
 
 #endif

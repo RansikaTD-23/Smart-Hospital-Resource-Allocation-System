@@ -40,6 +40,9 @@ int main()
     int wardId[MAX_PATIENTS];
     int daysAdmitted[MAX_PATIENTS];
 
+    //File Handling
+    loadBedStatus(bedOccupancy, wardTotalBedCapacity);
+
     do{
 
     //main menu
@@ -65,9 +68,10 @@ int main()
             case 3:
                    sortAndDisplayByPriority(patientName, patientEmergencyLevel, patientCount);//sorting by priority
                    generateSummaryReport(patientEmergencyLevel, patientFinalBill, patientDiscount,
-                          patientName, patientCount, bedOccupancy, wardTotalBedCapacity);//Summary Report
+                          patientName, patientCount, bedOccupancy, wardTotalBedCapacity);//Performance Report
                    break;
             case 4:
+                   saveBedStatus(bedOccupancy, wardTotalBedCapacity);//save files
                    printf("Thank you....\n");//exit
                    break;
             default:
@@ -195,6 +199,7 @@ void registerPatients(char patientName[][NAME_LENGTH],
         //Performance Report Print
         patientFinalBill[i] = finalAmount;
         patientDiscount[i] = discount;
+        appendPatientRecord(1000+(i+1), patientName[i], finalAmount);
 
         //Bill Print
         printBill(1000+(i+1), patientName[i], patientAge[i], specialtyId[i], wardId[i], isAdmitted[i],
