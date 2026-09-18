@@ -57,13 +57,15 @@ int main()
         switch(choice){
             case 1:
                    registerPatients(patientName,patientAge,patientEmergencyLevel,specialtyId,isAdmitted,wardId,
-                                    daysAdmitted,specialtyQueueCount,&patientCount);//patient registration
+                                    daysAdmitted,specialtyQueueCount,patientFinalBill,patientDiscount,&patientCount);//patient registration
                    break;
             case 2:
                    checkBedStatus(bedOccupancy, wardTotalBedCapacity);//checking bed status
                    break;
             case 3:
                    sortAndDisplayByPriority(patientName, patientEmergencyLevel, patientCount);//sorting by priority
+                   generateSummaryReport(patientEmergencyLevel, patientFinalBill, patientDiscount,
+                          patientName, patientCount, bedOccupancy, wardTotalBedCapacity);//Summary Report
                    break;
             case 4:
                    printf("Thank you....\n");//exit
@@ -84,6 +86,8 @@ void registerPatients(char patientName[][NAME_LENGTH],
                       int wardId[],
                       int daysAdmitted[],
                       int specialtyQueueCount[],
+                      float patientFinalBill[],
+                      float patientDiscount[],
                       int *count)
     {
         int i = *count;
@@ -187,6 +191,10 @@ void registerPatients(char patientName[][NAME_LENGTH],
         float grossTotal = calculateGrossTotalBill(baseFee, surcharge, wardCost);
         float discount = calculateSubsidyDiscount(patientAge[i], grossTotal);
         float finalAmount = calculateFinalAmountPayable(grossTotal, discount);
+
+        //Performance Report Print
+        patientFinalBill[i] = finalAmount;
+        patientDiscount[i] = discount;
 
         //Bill Print
         printBill(1000+(i+1), patientName[i], patientAge[i], specialtyId[i], wardId[i], isAdmitted[i],

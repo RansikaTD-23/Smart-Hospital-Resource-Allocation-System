@@ -44,7 +44,7 @@ void registerPatients(
                         int daysAdmitted[],
                         int specialtyQueueCount[],
                         float patientFinalBill[],
-                        float patientDiscount,
+                        float patientDiscount[],
                         int *count);
 
 
