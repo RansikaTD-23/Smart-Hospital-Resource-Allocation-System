@@ -17,7 +17,9 @@ void checkBedStatus(int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[])
 {
     int ward, bed, occupiedCount;
 
-    printf("\n=========== BED OCCUPANCY STATUS ================\n");
+    printf("\n============================================================\n");
+    printf("                   BED OCCUPANCY STATUS\n");
+    printf("============================================================\n");
 
     for(ward = 0; ward < NUM_WARD; ward++){
         occupiedCount = 0;
@@ -27,9 +29,10 @@ void checkBedStatus(int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[])
             }
         }
         printf("\n%s\n", wardName[ward]);
-        printf("  Total Beds     : %d\n", wardCapacity[ward]);
-        printf("  Occupied       : %d\n", occupiedCount);
-        printf("  Available      : %d\n", wardCapacity[ward] - occupiedCount);
+        printf("------------------------------------------------------------\n");
+        printf("%-20s: %d\n", "Total Beds", wardCapacity[ward]);
+        printf("%-20s: %d\n", "Occupied", occupiedCount);
+        printf("%-20s: %d\n", "Available", wardCapacity[ward] - occupiedCount);
     }
-    printf("\n=================================================\n");
+    printf("\n============================================================\n");
 }

@@ -9,10 +9,10 @@ float calculateWaitingTime(int specialityId,int queueCount[],int specialityTime[
 
 float calculateEmergencySurcharge(int urgencyLevel,float baseFee)
 {
-    if(urgencyLevel == 0){
+    if(urgencyLevel == 1){
         return 0;
     }
-    else if (urgencyLevel == 1){
+    else if (urgencyLevel == 2){
         return baseFee * 0.20;
     }
     else{
@@ -60,76 +60,76 @@ void printBill(int patientId, char patientName[], int age, int specialtyId, int 
                int urgencyLevel, int daysAdmitted, float baseFee, float surcharge, float wardCost,
                float grossTotal, float discount, float finalAmount, float waitingTime,int bedNum)
 {
-    printf("\n==================================================\n");
-    printf("             SMART HOSPITAL ADMISSION & BILL        \n");
-    printf("---------------------------------------------------\n");
-    printf("Patient ID                 : PAT - %d\n", patientId);
-    printf("Patient Name               : %s\n", patientName);
+    printf("\n============================================================\n");
+    printf("              SMART HOSPITAL ADMISSION & BILL\n");
+    printf("============================================================\n");
+    printf("%-28s: PAT-%d\n", "Patient ID", patientId);
+    printf("%-28s: %s\n", "Patient Name", patientName);
 
     if(age < AGE_YOUNG || age > AGE_ADULT){
-        printf("Age                        : %d Years (15%% Subsidy Eligible)\n", age);
+        printf("%-28s: %d Years (15%% Subsidy Eligible)\n", "Age", age);
     }
     else {
-        printf("Age                        : %d Years\n", age);
+        printf("%-28s: %d Years\n", "Age", age);
     }
 
-    printf("Specialty                  : %s\n", specialtyNames[specialtyId-1]);
+    printf("%-28s: %s\n", "Specialty", specialtyNames[specialtyId-1]);
 
     if(isAdmitted == 1){
-        printf("Assigned Ward              : %s (Bed #0%d)\n", wardName[wardId-1], patientId-1000);
+        printf("%-28s: %s (Bed #%02d)\n", "Assigned Ward", wardName[wardId-1], bedNum);
     }
     else {
-        printf("Assigned Ward              :Not Admitted (OPD)\n");
+        printf("%-28s: Not Admitted (OPD)\n", "Assigned Ward");
     }
 
     if(urgencyLevel == 1){
-        printf("Urgency Level              : Level 1 (Normal)\n");
+        printf("%-28s: Level 1 (Normal)\n", "Urgency Level");
     }
     else if(urgencyLevel == 2){
-        printf("Urgency Level              : Level 2 (Urgent)\n");
+        printf("%-28s: Level 2 (Urgent)\n", "Urgency Level");
     }
     else{
-        printf("Urgency Level              : Level 3 (Critical)\n");
+        printf("%-28s: Level 3 (Critical)\n", "Urgency Level");
     }
 
-    printf("------------------------------------------------------\n");
-    printf("Base Consultation Fee      : LKR %.2f\n", baseFee);
+    printf("------------------------------------------------------------\n");
+    printf("%-28s: LKR %.2f\n", "Base Consultation Fee", baseFee);
+
     if(urgencyLevel == 1){
-    printf("Emergency Surcharge        : LKR %.2f\n", surcharge);
+        printf("%-28s: LKR %.2f\n", "Emergency Surcharge", surcharge);
     }
     else if(urgencyLevel == 2){
-    printf("Emergency Surcharge        : LKR %.2f (20%%)\n", surcharge);
+        printf("%-28s: LKR %.2f (20%%)\n", "Emergency Surcharge", surcharge);
     }
     else{
-    printf("Emergency Surcharge        : LKR %.2f (50%%)\n", surcharge);
+        printf("%-28s: LKR %.2f (50%%)\n", "Emergency Surcharge", surcharge);
     }
 
     if(isAdmitted == 1){
-        printf("Ward Stay Cost (%d Days)    : LKR %.2f\n", daysAdmitted, wardCost);
+        char wardLabel[30];
+        sprintf(wardLabel, "Ward Stay Cost (%d Days)", daysAdmitted);
+        printf("%-28s: LKR %.2f\n", wardLabel, wardCost);
     }
 
-    printf("-------------------------------------------------------\n");
-    printf("Gross Total Bill           : LKR %.2f\n", grossTotal);
+    printf("------------------------------------------------------------\n");
+    printf("%-28s: LKR %.2f\n", "Gross Total Bill", grossTotal);
+
     if(discount > 0){
-    printf("Age Subsidy Discount       : LKR -%.2f (15%%)\n", discount);
+        printf("%-28s: LKR -%.2f (15%%)\n", "Age Subsidy Discount", discount);
     }
     else{
-    printf("Age Subsidy Discount       : LKR -%.2f\n", discount);
+        printf("%-28s: LKR -%.2f\n", "Age Subsidy Discount", discount);
     }
-    printf("-------------------------------------------------------\n");
-    printf("Final Payable Amount       : LKR %.2f\n", finalAmount);
+
+    printf("------------------------------------------------------------\n");
+    printf("%-28s: LKR %.2f\n", "Final Payable Amount", finalAmount);
 
     if(waitingTime == 0){
-        printf("Estimated Waiting Time     : 0.00 mins (Immediate Attention)\n");
+        printf("%-28s: 0.00 mins (Immediate Attention)\n", "Estimated Waiting Time");
     }
     else {
-        printf("Estimated Waiting Time     : %.2f mins\n", waitingTime);
+        printf("%-28s: %.2f mins\n", "Estimated Waiting Time", waitingTime);
     }
 
-    printf("====================================================\n");
+    printf("============================================================\n");
 }
-
-
-
-
-

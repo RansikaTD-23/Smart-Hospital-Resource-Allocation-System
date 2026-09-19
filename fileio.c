@@ -5,7 +5,7 @@ void saveBedStatus(int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[])
 {
     FILE *fp = fopen("beds_status.txt", "w");
     if(fp == NULL){
-        printf("Error: Could not save bed status.\n");
+        printf("  >> Error: Could not save bed status.\n");
         return;
     }
 
@@ -41,11 +41,11 @@ void appendPatientRecord(int patientId, char name[], float finalAmount)
 {
     FILE *fp = fopen("patient_records.txt", "a");
     if(fp == NULL){
-        printf("Error: Could not save patient record.\n");
+        printf("  >> Error: Could not save patient record.\n");
         return;
     }
 
-    fprintf(fp, "PAT-%d | %s | LKR %.2f\n", patientId, name, finalAmount);
+    fprintf(fp, "PAT-%-6d | %-20s | LKR %10.2f\n", patientId, name, finalAmount);
 
     fclose(fp);
 }

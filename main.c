@@ -46,15 +46,15 @@ int main()
     do{
 
     //main menu
-    printf("\n===========================================================\n");
-    printf("        Smart Hospital & Resource Allocation System        \n");
-    printf("===========================================================\n");
-    printf("%30s\n","1.Register Patient");
-    printf("%30s\n","2.Check Bed Status");
-    printf("%41s\n","3.Generate Performance Report");
-    printf("%18s\n\n","4.Exit");
-
-    printf("Please Select the Choice: ");
+    printf("\n============================================================\n");
+    printf("          SMART HOSPITAL & RESOURCE ALLOCATION SYSTEM\n");
+    printf("============================================================\n");
+    printf("   1. Register Patient\n");
+    printf("   2. Check Bed Status\n");
+    printf("   3. Generate Performance Report\n");
+    printf("   4. Exit\n");
+    printf("============================================================\n");
+    printf("Enter Your Choice: ");
     scanf("%d",&choice);
 
         switch(choice){
@@ -72,15 +72,12 @@ int main()
                    break;
             case 4:
                    saveBedStatus(bedOccupancy, wardTotalBedCapacity);//save files
-                   printf("Thank you....\n");//exit
+                   printf("\nThank you for using Smart Hospital System....\n");//exit
                    break;
             default:
-                   printf("Invalid...Please Try Again...\n");
+                   printf("\n  >> Invalid choice. Please try again.\n");
         }
     }while(choice != 4);
 
     return 0;
 }
-
-
-
