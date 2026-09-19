@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "hospital.h"
 
 void registerPatients(char patientName[][NAME_LENGTH],
@@ -18,8 +19,36 @@ void registerPatients(char patientName[][NAME_LENGTH],
         printf("\n============================================================\n");
         printf("                   PATIENT REGISTRATION\n");
         printf("============================================================\n");
+
+        int titleChoice;
+        do
+    {
+        printf("   1. Mr.\n");
+        printf("   2. Mrs.\n");
+        printf("   3. Miss\n");
+        printf("%-20s: ", "Title");
+        scanf("%d", &titleChoice);
+        if(titleChoice<1 || titleChoice>3){
+        printf("  >> Invalid input. Please enter 1, 2, or 3.\n");
+        }
+    }while(titleChoice<1 || titleChoice>3);
+
+    char titleText[10];
+    if(titleChoice == 1){
+        strcpy(titleText, "Mr.");
+    }
+    else if(titleChoice == 2){
+        strcpy(titleText, "Mrs.");
+    }
+    else{
+        strcpy(titleText, "Miss");
+    }
+
+    char fullName[NAME_LENGTH];
         printf("%-20s: ", "Patient Name");
-        scanf(" %[^\n]",patientName[i]);
+        scanf(" %[^\n]", fullName);
+
+    sprintf(patientName[i], "%s%s", titleText, fullName);
 
         do{
             printf("%-20s: ", "Age of Patient");
@@ -102,7 +131,7 @@ void registerPatients(char patientName[][NAME_LENGTH],
 
             bedNum = allocateBed(wardId[i],bedOccupancy,wardTotalBedCapacity);
             if(bedNum == -1){
-                printf("\n  >> Sorry, %s is FULL. No beds available.\n", wardName[wardId[i]-1]);
+                printf("\n  >> Sorry, %s is Full. No beds available.\n", wardName[wardId[i]-1]);
             }
 
         }else{
