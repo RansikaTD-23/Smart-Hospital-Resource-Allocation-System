@@ -93,5 +93,9 @@ void generateSummaryReport(int patientEmergencyLevel[], float patientFinalBill[]
         printf("\n%-28s: %s - LKR %.2f\n", "Highest Paying Patient", patientName[highestIdx], patientFinalBill[highestIdx]);
     }
 
-    printf("\n============================================================\n");
+        printf("\n============================================================\n");
+
+        while(getchar() != '\n');
+        printf("\nPress Enter to return to the menu...");
+        getchar();
 }

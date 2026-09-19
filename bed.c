@@ -34,5 +34,9 @@ void checkBedStatus(int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[])
         printf("%-20s: %d\n", "Occupied", occupiedCount);
         printf("%-20s: %d\n", "Available", wardCapacity[ward] - occupiedCount);
     }
-    printf("\n============================================================\n");
+        printf("\n============================================================\n");
+
+        while(getchar() != '\n');
+        printf("\nPress Enter to return to the menu...");
+        getchar();
 }

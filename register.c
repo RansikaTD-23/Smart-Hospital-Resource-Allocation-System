@@ -137,4 +137,8 @@ void registerPatients(char patientName[][NAME_LENGTH],
                   patientEmergencyLevel[i], daysAdmitted[i], baseFee, surcharge, wardCost,
                   grossTotal, discount, finalAmount, waitingTime,bedNum);
 
+        while(getchar() != '\n');
+        printf("\nPress Enter to return to the menu...");
+        getchar();
+
     }
