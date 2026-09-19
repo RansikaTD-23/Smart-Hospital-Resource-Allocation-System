@@ -36,6 +36,10 @@ void sortAndDisplayByPriority(char patientName[][NAME_LENGTH],int patientEmergen
         printf("%-10s| %-20s| Level %d\n", patId, patientName[index], patientEmergencyLevel[index]);
     }
     printf("============================================================\n");
+
+    while(getchar() != '\n');
+    printf("\nPress Enter to return to the menu...");
+    getchar();
 }
 
 void generateSummaryReport(int patientEmergencyLevel[], float patientFinalBill[], float patientDiscount[],
@@ -48,7 +52,7 @@ void generateSummaryReport(int patientEmergencyLevel[], float patientFinalBill[]
     printf("               HOSPITAL PERFORMANCE REPORT\n");
     printf("============================================================\n");
 
-    // a) Urgency Level Count
+    // Urgency Level Count
     int normalCount=0, urgentCount=0, criticalCount=0;
     for(k=0; k<count; k++){
         if(patientEmergencyLevel[k]==1) normalCount++;
@@ -60,7 +64,7 @@ void generateSummaryReport(int patientEmergencyLevel[], float patientFinalBill[]
     printf("%-28s: %d\n", "  Urgent", urgentCount);
     printf("%-28s: %d\n", "  Critical", criticalCount);
 
-    // b) Total Revenue & Discount
+    //Total Revenue & Discount
     float totalRevenue=0, totalDiscount=0;
     for(k=0; k<count; k++){
         totalRevenue += patientFinalBill[k];
@@ -69,7 +73,7 @@ void generateSummaryReport(int patientEmergencyLevel[], float patientFinalBill[]
     printf("\n%-28s: LKR %.2f\n", "Total Revenue Earned", totalRevenue);
     printf("%-28s: LKR %.2f\n", "Total Discounts Granted", totalDiscount);
 
-    // c) Bed Occupancy Per Ward
+    //Bed Occupancy Per Ward
     printf("\n------------------------------------------------------------\n");
     printf("Bed Occupancy Percentage:\n");
     printf("------------------------------------------------------------\n");
@@ -82,7 +86,7 @@ void generateSummaryReport(int patientEmergencyLevel[], float patientFinalBill[]
         printf("%-28s: %.2f%%\n", wardName[w], percent);
     }
 
-    // d) Highest Paying Patient
+    //Highest Paying Patient
     if(count > 0){
         int highestIdx=0;
         for(k=1; k<count; k++){

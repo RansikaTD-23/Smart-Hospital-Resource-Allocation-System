@@ -51,8 +51,9 @@ int main()
     printf("============================================================\n");
     printf("   1. Register Patient\n");
     printf("   2. Check Bed Status\n");
-    printf("   3. Generate Performance Report\n");
-    printf("   4. Exit\n");
+    printf("   3. View Patients by Priority\n");
+    printf("   4. Generate Performance Report\n");
+    printf("   5. Exit\n");
     printf("============================================================\n");
     printf("Enter Your Choice: ");
     scanf("%d",&choice);
@@ -67,17 +68,19 @@ int main()
                    break;
             case 3:
                    sortAndDisplayByPriority(patientName, patientEmergencyLevel, patientCount);//sorting by priority
+                   break;
+            case 4:
                    generateSummaryReport(patientEmergencyLevel, patientFinalBill, patientDiscount,
                           patientName, patientCount, bedOccupancy, wardTotalBedCapacity);//Performance Report
                    break;
-            case 4:
+            case 5:
                    saveBedStatus(bedOccupancy, wardTotalBedCapacity);//save files
                    printf("\nThank you for using Smart Hospital System....\n");//exit
                    break;
             default:
                    printf("\n  >> Invalid choice. Please try again.\n");
         }
-    }while(choice != 4);
+    }while(choice != 5);
 
     return 0;
 }
