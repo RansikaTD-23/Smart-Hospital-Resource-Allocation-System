@@ -2,6 +2,28 @@
 #include <string.h>
 #include "hospital.h"
 
+int getValidInt(int min, int max, char *word)
+{
+    int value;
+    int valid;
+
+    do{
+        printf("%-20s: ", word);
+        valid = scanf("%d", &value);
+
+        if(valid != 1){
+            printf("  >> Invalid input. Please enter a number.\n");
+            while(getchar() != '\n');
+            value = min - 1;
+        }
+        else if(value < min || value > max){
+            printf("  >> Invalid input. Please enter a number between %d and %d.\n", min, max);
+        }
+    }while(value < min || value > max);
+
+    return value;
+}
+
 void registerPatients(char patientName[][NAME_LENGTH],
                       int patientAge[],
                       int patientEmergencyLevel[],
@@ -19,119 +41,70 @@ void registerPatients(char patientName[][NAME_LENGTH],
         printf("\n============================================================\n");
         printf("                   PATIENT REGISTRATION\n");
         printf("============================================================\n");
-
-        int titleChoice;
-        do
-    {
         printf("   1. Mr.\n");
         printf("   2. Mrs.\n");
         printf("   3. Miss\n");
-        printf("%-20s: ", "Title");
-        scanf("%d", &titleChoice);
-        if(titleChoice<1 || titleChoice>3){
-        printf("  >> Invalid input. Please enter 1, 2, or 3.\n");
+        int titleChoice = getValidInt(1, 3, "Title");
+
+        char titleText[10];
+        if(titleChoice == 1){
+            strcpy(titleText, "Mr.");
         }
-    }while(titleChoice<1 || titleChoice>3);
+        else if(titleChoice == 2){
+            strcpy(titleText, "Mrs.");
+        }
+        else{
+            strcpy(titleText, "Miss");
+        }
 
-    char titleText[10];
-    if(titleChoice == 1){
-        strcpy(titleText, "Mr.");
-    }
-    else if(titleChoice == 2){
-        strcpy(titleText, "Mrs.");
-    }
-    else{
-        strcpy(titleText, "Miss");
-    }
-
-    char fullName[NAME_LENGTH];
+        char fullName[NAME_LENGTH];
         printf("%-20s: ", "Patient Name");
         scanf(" %[^\n]", fullName);
 
-    sprintf(patientName[i], "%s%s", titleText, fullName);
+        sprintf(patientName[i], "%s %s", titleText, fullName);
 
-        do{
-            printf("%-20s: ", "Age of Patient");
-            scanf("%d",&patientAge[i]);
-            if(patientAge[i]<0 || patientAge[i]>120){
-                printf("  >> Invalid Age. Please enter a realistic age.\n");
-            }
-        }while(patientAge[i]<0 || patientAge[i]>120);
+        patientAge[i] = getValidInt(0, 120, "Age of Patient");
 
-        do
-        {
-            printf("\n------------------------------------------------------------\n");
-            printf("                  SELECT EMERGENCY LEVEL\n");
-            printf("------------------------------------------------------------\n");
-            printf("   1. Normal\n");
-            printf("   2. Urgent\n");
-            printf("   3. Critical\n");
-            printf("%-20s: ", "Emergency Level");
-            scanf("%d",&patientEmergencyLevel[i]);
-            if(patientEmergencyLevel[i]<1 || patientEmergencyLevel[i]>3){
-                printf("  >> Invalid input. Please enter 1, 2, or 3.\n");
-            }
-        }while(patientEmergencyLevel[i]<1 || patientEmergencyLevel[i]>3);
+        printf("\n------------------------------------------------------------\n");
+        printf("                  SELECT EMERGENCY LEVEL\n");
+        printf("------------------------------------------------------------\n");
+        printf("   1. Normal\n");
+        printf("   2. Urgent\n");
+        printf("   3. Critical\n");
+        patientEmergencyLevel[i] = getValidInt(1, 3, "Emergency Level");
 
-        do
-        {
-            printf("\n------------------------------------------------------------\n");
-            printf("                    SELECT SPECIALTY\n");
-            printf("------------------------------------------------------------\n");
-            printf("   1. General Practice (OPD)\n");
-            printf("   2. Paediatrics\n");
-            printf("   3. Cardiology\n");
-            printf("   4. Neurology\n");
-            printf("%-20s: ", "Specialty ID");
-            scanf("%d",&specialtyId[i]);
-            if(specialtyId[i]<1 || specialtyId[i]>4){
-                printf("  >> Invalid input. Please enter 1, 2, 3, or 4.\n");
-            }
-        }while(specialtyId[i]<1 || specialtyId[i]>4);
+        printf("\n------------------------------------------------------------\n");
+        printf("                    SELECT SPECIALTY\n");
+        printf("------------------------------------------------------------\n");
+        printf("   1. General Practice (OPD)\n");
+        printf("   2. Paediatrics\n");
+        printf("   3. Cardiology\n");
+        printf("   4. Neurology\n");
+        specialtyId[i] = getValidInt(1, 4, "Specialty ID");
 
-        do
-        {
-            printf("\n------------------------------------------------------------\n");
-            printf("                   PATIENT ADMISSION\n");
-            printf("------------------------------------------------------------\n");
-            printf("   1. Admitted\n");
-            printf("   0. Not Admitted\n");
-            printf("%-20s: ", "Admitted (0/1)");
-            scanf("%d",&isAdmitted[i]);
-            if(isAdmitted[i]<0 || isAdmitted[i]>1){
-                printf("  >> Invalid input. Please enter 0 or 1.\n");
-            }
-        }while(isAdmitted[i]<0 || isAdmitted[i]>1);
+        printf("\n------------------------------------------------------------\n");
+        printf("                   PATIENT ADMISSION\n");
+        printf("------------------------------------------------------------\n");
+        printf("   1. Admitted\n");
+        printf("   0. Not Admitted\n");
+        isAdmitted[i] = getValidInt(0, 1, "Admitted (0/1)");
 
         int bedNum = 0;
         if(isAdmitted[i]==1){
-            do
-            {
-                printf("\n------------------------------------------------------------\n");
-                printf("                     SELECT WARD ID\n");
-                printf("------------------------------------------------------------\n");
-                printf("   1. General Ward\n");
-                printf("   2. Paediatric Ward\n");
-                printf("   3. Surgical Ward\n");
-                printf("   4. ICU (Intensive Care Unit)\n");
-                printf("%-20s: ", "Ward ID");
-                scanf("%d",&wardId[i]);
-                if(wardId[i]<1 || wardId[i]>4){
-                    printf("  >> Invalid input. Please enter 1, 2, 3, or 4.\n");
-                }
-            }while(wardId[i]<1 || wardId[i]>4);
+            printf("\n------------------------------------------------------------\n");
+            printf("                     SELECT WARD ID\n");
+            printf("------------------------------------------------------------\n");
+            printf("   1. General Ward\n");
+            printf("   2. Paediatric Ward\n");
+            printf("   3. Surgical Ward\n");
+            printf("   4. ICU (Intensive Care Unit)\n");
+            wardId[i] = getValidInt(1, 4, "Ward ID");
 
-            do{
-                printf("%-20s: ", "Days Admitted");
-                scanf("%d",&daysAdmitted[i]);
-                if(daysAdmitted[i]<=0){
-                    printf("  >> Invalid. Days must be greater than 0.\n");
-                }
-            }while(daysAdmitted[i]<=0);
+            daysAdmitted[i] = getValidInt(1, 9999, "Days Admitted");
 
             bedNum = allocateBed(wardId[i],bedOccupancy,wardTotalBedCapacity);
             if(bedNum == -1){
-                printf("\n  >> Sorry, %s is Full. No beds available.\n", wardName[wardId[i]-1]);
+                printf("\n  >> Sorry, %s is FULL. No beds available.\n", wardName[wardId[i]-1]);
             }
 
         }else{

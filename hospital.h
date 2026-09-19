@@ -81,5 +81,8 @@ void saveBedStatus(int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[]);
 void loadBedStatus(int bedOccupancy[][MAX_BED_PER_WARD], int wardCapacity[]);
 void appendPatientRecord(int patientId, char name[], float finalAmount);
 
+// Input Validation
+int getValidInt(int min, int max, char *prompt);
+
 
 #endif
