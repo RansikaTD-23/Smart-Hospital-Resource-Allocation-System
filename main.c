@@ -55,7 +55,7 @@ int main()
     printf("   4. Generate Performance Report\n");
     printf("   5. Exit\n");
     printf("============================================================\n");
-    printf("Enter Your Choice: ");
+    printf("Please Enter Your Choice: ");
     scanf("%d",&choice);
 
         switch(choice){
