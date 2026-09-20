@@ -1,128 +1,60 @@
-# Smart-Hospital-Resource-Allocation-System
+SMART HOSPITAL & RESOURCE ALLOCATION SYSTEM
+=============================================
 
-Modular C implementation of a menu-driven Smart Hospital Patient \& Resource Allocation System featuring parallel arrays, emergency triage sorting, bed matrix management, automated billing, and file handling.
+This is a simple console-based hospital management system built in C, made for my CSC 1012 (Introduction to Computer Programming) assignment at the University of Sri Jayewardenepura.
 
+It lets you register patients, assign them beds, calculate their bills, and see reports, all through a menu in the terminal.
 
 
+WHAT IT CAN DO
+--------------
+1. Register a patient - enter their title (Mr./Mrs./Miss), name, age, how urgent their case is, which specialty they need, and whether they're being admitted.
+2. Bed allocation - if the patient is admitted, the system automatically finds and assigns the first free bed in that ward.
+3. Automatic billing - calculates the consultation fee, emergency surcharge, ward cost, any age discount, and the final amount, then prints a proper bill.
+4. Bed status - check how many beds are free or occupied in each ward.
+5. Priority list - shows all patients sorted so the most critical ones appear first.
+6. Performance report - shows total patients by urgency, total revenue, total discounts given, bed occupancy %, and who paid the most.
+7. Saves data between runs - bed occupancy is saved to a file so it's remembered even if you close and reopen the program. Every bill is also logged permanently to a text file.
 
 
+MENU
+----
+1. Register Patient
+2. Check Bed Status
+3. View Patients by Priority
+4. Generate Performance Report
+5. Exit
 
+After most screens, it'll ask you to press Enter before going back to the menu, so you have time to read the results.
 
-\# Smart Hospital \& Resource Allocation System
 
+FILES IN THIS PROJECT
+----------------------
+main.c     - the main menu and the program's starting point
+register.c - handles registering a new patient (also has a small helper function that checks if the user typed a valid number)
+billing.c  - does all the billing math and prints the bill
+bed.c      - handles assigning beds and showing bed status
+report.c   - sorts patients by priority and builds the summary report
+fileio.c   - saves/loads bed data and keeps a log of patient bills
+hospital.h - shared constants and function declarations used by all the files above
 
 
-A modular, menu-driven console application built in C for \*\*CSC 1012 – Introduction to Computer Programming\*\* (University of Sri Jayewardenepura). The system simulates patient intake, bed allocation, emergency triage sorting, and medical billing for a hospital, using parallel arrays throughout.
+HOW TO RUN IT
+-------------
+1. Open the .cbp file in Code::Blocks.
+2. Build it (Ctrl+F9).
+3. Run it (F9).
+4. Use the menu to try it out.
 
 
+A FEW NOTES / ASSUMPTIONS I MADE
+---------------------------------
+1. I set a max of 100 patients and 50 characters per name, since the assignment didn't specify exact numbers.
+2. Beds are given out in order, whichever bed is free first gets assigned.
+3. Only bed status and billing logs are saved permanently between runs (as the assignment asked for). The patient list, priority list, and report reset each time you restart the program, since that part wasn't required to be saved.
+4. Age must be between 0-120, and days admitted must be a positive number, just basic sanity checks.
 
-\## Features
 
-
-
-\- \*\*Patient Registration\*\* – Collects patient title, name, age, triage level, specialty, and ward admission details, with full input validation (including protection against non-numeric input).
-
-\- \*\*Bed Allocation\*\* – Assigns the first available bed in the chosen ward and tracks occupancy in a 2D bed status matrix.
-
-\- \*\*Billing Engine\*\* – Calculates consultation fees, emergency surcharges, ward stay costs, age-based subsidies, and final payable amounts, then prints a formatted bill.
-
-\- \*\*Waiting Time Estimation\*\* – Estimates queue wait time per specialty based on current queue length.
-
-\- \*\*Priority Sorting\*\* – Lists registered patients in triage priority order (Critical → Urgent → Normal) using selection sort.
-
-\- \*\*Performance Reports\*\* – Summarizes patient counts by triage level, total revenue and discounts, bed occupancy percentage per ward, and the highest-paying patient.
-
-\- \*\*File Persistence (Bonus)\*\* – Bed occupancy is saved to `beds\_status.txt` on exit and restored on the next run; every finalized bill is appended to `patient\_records.txt` as a permanent log.
-
-
-
-\## Project Structure
-
-
-
-```
-
-├── main.c        # Global data + main() menu loop
-
-├── register.c    # Patient registration and input validation
-
-├── billing.c     # Billing calculations and bill printing
-
-├── bed.c         # Bed allocation and bed status display
-
-├── report.c      # Priority sorting and performance reporting
-
-├── fileio.c      # Save/load bed status, patient record logging
-
-├── hospital.h    # Constants, extern declarations, function prototypes
-
-└── \*.cbp         # Code::Blocks project file
-
-```
-
-
-
-\## Menu Options
-
-
-
-1\. Register Patient
-
-2\. Check Bed Status
-
-3\. View Patients by Priority
-
-4\. Generate Performance Report
-
-5\. Exit
-
-
-
-\## Data Structures
-
-
-
-The system uses \*\*parallel arrays\*\* (no structs) throughout:
-
-
-
-\- Fixed lookup tables for the 4 doctor specialties and 4 hospital wards.
-
-\- `bedOccupancy\[4]\[20]` – a 2D matrix tracking bed availability per ward.
-
-\- Patient records tracked across multiple parallel arrays (name, age, triage level, specialty, admission details, billing totals), all indexed by the same patient index.
-
-
-
-\## How to Run
-
-
-
-1\. Open `SmartHospitalSystem.cbp` in Code::Blocks.
-
-2\. Build the project (`Ctrl+F9`).
-
-3\. Run it (`F9`).
-
-4\. Follow the on-screen menu to register patients, check bed status, and generate reports.
-
-
-
-\## Assumptions
-
-
-
-\- Maximum of 100 patients per run and 50 characters per name (not specified in the assignment; chosen as reasonable defaults).
-
-\- The first available (lowest-numbered) bed in a ward is assigned on admission.
-
-\- Patient age is validated to 0–120 years; days admitted must be a positive integer.
-
-
-
-\## Author
-
-
-
-Developed as an individual assignment for CSC 1012, BSc (General) Degree, University of Sri Jayewardenepura.
-
+ABOUT
+-----
+Made individually for CSC 1012, BSc (General) Degree, first year, University of Sri Jayewardenepura.
